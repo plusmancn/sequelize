@@ -207,6 +207,14 @@ if (dialect === 'mysql') {
           expectation: 'SELECT count(*) AS `count` FROM `foo`;',
           context: QueryGenerator
         }, {
+          arguments: ['myTable', {partition: ['p0', 'p1']}],
+          expectation: 'SELECT * FROM `myTable` PARTITION(`p0`, `p1`);',
+          context: QueryGenerator
+        }, {
+          arguments: ['myTable', {partition: 'p0'}],
+          expectation: 'SELECT * FROM `myTable` PARTITION(`p0`);',
+          context: QueryGenerator
+        }, {
           arguments: ['myTable', {order: ['id']}],
           expectation: 'SELECT * FROM `myTable` ORDER BY `id`;',
           context: QueryGenerator
